@@ -1,5 +1,8 @@
 use clap::{App, AppSettings, ArgMatches};
 
+#[cfg(test)]
+use clap::Result;
+
 
 fn build() -> App<'static, 'static> {
     return App::new(crate_name!())
@@ -16,4 +19,9 @@ fn build() -> App<'static, 'static> {
 
 pub fn get_matches() -> ArgMatches<'static> {
     return build().get_matches();
+}
+
+#[cfg(test)]
+pub fn get_matches_for(args : Vec<String>) -> Result<ArgMatches<'static>> {
+    return build().get_matches_from_safe(args);
 }
