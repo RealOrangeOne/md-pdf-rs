@@ -1,0 +1,10 @@
+dependencies:
+    pre:
+        - curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y
+
+test:
+    override:
+        - cargo build --verbose
+        - cargo test --verbose
+        - cargo build --verbose --release
+        - cargo test --verbose --release
