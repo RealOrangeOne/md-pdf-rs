@@ -3,7 +3,7 @@ rust:
   - stable
 
 script:
-  - cargo build --verbose
-  - cargo test --verbose
-  - cargo build --verbose --release
-  - cargo test --verbose --release
+  - cargo build
+  - cargo build --release
+  - cargo test
+  - cargo test --release
