@@ -1,8 +1,11 @@
-use clap::{App, AppSettings, ArgMatches, Arg};
+use clap::{App, AppSettings, ArgMatches, Arg, SubCommand};
 
 #[cfg(test)]
 use clap::Result;
 
+fn get_build_command() -> App<'static, 'static> {
+    return SubCommand::with_name("build")
+}
 
 fn build() -> App<'static, 'static> {
     return App::new(crate_name!())
@@ -21,6 +24,8 @@ fn build() -> App<'static, 'static> {
             .help("Show verbose output")
             .multiple(true)
         )
+        .subcommand(get_build_command())
+
 }
 
 
