@@ -7,5 +7,5 @@ mod args;
 mod tests;
 
 fn main() {
-    let matches = args::get_matches();
+    args::get_matches();
 }
