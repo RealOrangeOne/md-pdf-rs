@@ -34,7 +34,7 @@ pub fn get_matches() -> ArgMatches<'static> {
 }
 
 #[cfg(test)]
-pub fn get_matches_for(args : Vec<String>) -> Result<ArgMatches<'static>> {
+pub fn get_matches_for(args : Vec<&str>) -> Result<ArgMatches<'static>> {
     return build().get_matches_from_safe(args);
 }
 
