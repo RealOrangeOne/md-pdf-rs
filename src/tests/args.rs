@@ -1,6 +1,5 @@
 use args;
 
-use std::error::Error;
 use clap::ErrorKind;
 
 #[test]
