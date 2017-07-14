@@ -15,7 +15,6 @@ fn build() -> App<'static, 'static> {
         .setting(AppSettings::SubcommandRequiredElseHelp)
         .global_setting(AppSettings::VersionlessSubcommands)
         .global_setting(AppSettings::ColoredHelp)
-        .global_setting(AppSettings::GlobalVersion)
         .global_setting(AppSettings::StrictUtf8)
         .arg(Arg::with_name("verbose")
             .global(true)
@@ -24,8 +23,7 @@ fn build() -> App<'static, 'static> {
             .help("Show verbose output")
             .multiple(true)
         )
-        .subcommand(get_build_command())
-
+        .subcommand(get_build_command());
 }
 
 

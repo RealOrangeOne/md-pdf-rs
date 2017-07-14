@@ -1,9 +1,17 @@
 use args;
 
+use std::error::Error;
+use clap::ErrorKind;
+
 #[test]
 fn incorrect_subcommand() {
-    assert!(args::get_matches_for(vec!("mdp")).is_err());
-    assert!(args::get_matches_for(vec!("mdp", "invalid")).is_err());
+    let out = args::get_matches_for(vec!("mdp"));
+    assert!(out.is_err());
+    assert_eq!(out.unwrap_err().kind, ErrorKind::MissingArgumentOrSubcommand);
+
+    let out = args::get_matches_for(vec!("mdp", "invalid"));
+    assert!(out.is_err());
+    assert_eq!(out.unwrap_err().kind, ErrorKind::UnknownArgument);
 }
 
 #[test]
@@ -28,4 +36,16 @@ fn build_subcommand() {
     let out = args::get_matches_for(vec!("mdp", "build"));
     assert!(out.is_ok());
     assert_eq!(out.unwrap().subcommand_name().unwrap(), "build");
+}
+
+
+#[test]
+fn version_string() {
+    let out = args::get_matches_for(vec!("mdp", "--version"));
+    assert!(out.is_err());
+    assert_eq!(out.unwrap_err().kind, ErrorKind::VersionDisplayed);
+
+    let out = args::get_matches_for(vec!("mdp", "build", "--version"));
+    assert!(out.is_err());
+    assert_eq!(out.unwrap_err().kind, ErrorKind::UnknownArgument);
 }
