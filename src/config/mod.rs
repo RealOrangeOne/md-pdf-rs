@@ -2,6 +2,7 @@ use serde_yaml;
 
 pub mod read;
 pub mod validate;
+pub mod consts;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Config {

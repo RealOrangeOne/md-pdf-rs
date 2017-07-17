@@ -3,10 +3,12 @@ use std::path::PathBuf;
 use std::fs::File;
 use std::io::Read;
 
+use config::consts;
+
 
 fn get_config_path() -> PathBuf {
     let mut working_dir = current_dir().unwrap();
-    working_dir.push("mdp.yml");
+    working_dir.push(consts::CONFIG_FILE);
     return working_dir;
 }
 
