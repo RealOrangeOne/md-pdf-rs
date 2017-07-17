@@ -11,5 +11,8 @@ mod config;
 mod tests;
 
 fn main() {
-    config::get_config();
+    let args = args::get_matches();
+    if args.subcommand_name().unwrap() == "build" {
+        config::get_config();
+    }
 }
