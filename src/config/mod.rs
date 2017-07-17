@@ -10,17 +10,15 @@ pub struct Config {
 }
 
 impl Config {
-}
-
-
-fn construct(data: String) -> Config {
-    return serde_yaml::from_str(&data).unwrap();
+    fn new(raw: String) -> Config {
+        return serde_yaml::from_str(&raw).unwrap();
+    }
 }
 
 
 pub fn get_config() {
     let config_str = read::read();
-    let config = construct(config_str);
+    let config = Config::new(config_str);
     println!("{:?}", config);
     validate::validate(config);
 }
