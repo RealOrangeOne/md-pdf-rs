@@ -1,5 +1,6 @@
 use serde_yaml;
 use serde_yaml::Value;
+use std::path::PathBuf;
 
 pub mod read;
 pub mod validate;
@@ -7,14 +8,14 @@ pub mod consts;
 
 #[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Config {
-    input: Vec<String>,
+    input: Vec<PathBuf>,
 
 }
 
 impl Config {
     fn new(raw: Value) -> Config {
         return Config {
-            input: read::get_inputs(raw),
+            input: read::get_input_files(raw),
             ..Default::default()
         };
     }
