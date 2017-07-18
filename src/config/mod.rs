@@ -7,17 +7,14 @@ pub mod consts;
 
 #[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Config {
-    raw: String,
     input: Vec<String>,
 
 }
 
 impl Config {
-    fn new(raw: String) -> Config {
-        let raw_conf: Value = serde_yaml::from_str(&raw).unwrap();
+    fn new(raw: Value) -> Config {
         return Config {
-            raw: raw,
-            input: read::get_inputs(raw_conf),
+            input: read::get_inputs(raw),
             ..Default::default()
         };
     }
@@ -26,6 +23,7 @@ impl Config {
 
 pub fn get_config() -> Config {
     let config_str = read::read();
-
-    return Config::new(config_str);
+    let config_value: Value = serde_yaml::from_str(&config_str).unwrap();
+    validate::validate(&config_value).expect("Validation Error");
+    return Config::new(config_value);
 }

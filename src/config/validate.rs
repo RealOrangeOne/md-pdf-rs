@@ -1,9 +1,24 @@
-use config::Config;
-
+use serde_yaml::Value;
 use std::vec::Vec;
 
+pub type ValidationResult = Result<(), String>;
 
-pub fn unwrap_group(config: &Config, funcs: Vec<&Fn(&Config) -> Result<(), String>>) -> Result<(), String> {
+
+fn check_required_keys(config: &Value) -> ValidationResult {
+    for key in vec!(
+        "input",
+        "output",
+        "title"
+    ).iter() {
+        if config.get(key).is_none() {
+            return Err("Missing key".into());
+        }
+    }
+    return Ok(());
+}
+
+
+pub fn unwrap_group(config: &Value, funcs: Vec<&Fn(&Value) -> ValidationResult>) -> ValidationResult {
     for func in funcs.iter() {
         let func_result = func(config);
         if func_result.is_err() {
@@ -14,8 +29,8 @@ pub fn unwrap_group(config: &Config, funcs: Vec<&Fn(&Config) -> Result<(), Strin
 }
 
 
-pub fn validate(config: Config) -> Result<(), String> {
-    return unwrap_group(&config, vec!(
-        &|c| { Ok(()) }
+pub fn validate(config: &Value) -> ValidationResult {
+    return unwrap_group(config, vec!(
+        &check_required_keys
     ));
 }
