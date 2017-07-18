@@ -1,5 +1,7 @@
-#[macro_use] extern crate clap;
-#[macro_use] extern crate serde_derive;
+#[macro_use]
+extern crate clap;
+#[macro_use]
+extern crate serde_derive;
 
 extern crate serde_yaml;
 
@@ -16,4 +18,3 @@ fn main() {
         println!("{:?}", config::get_config());
     }
 }
-

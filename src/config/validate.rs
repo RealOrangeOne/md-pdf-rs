@@ -7,11 +7,7 @@ use config::read;
 
 
 fn check_required_keys(config: &Value) -> ValidationResult {
-    for key in vec!(
-        "input",
-        "output",
-        "title"
-    ).iter() {
+    for key in vec!["input", "output", "title"].iter() {
         if config.get(key).is_none() {
             return Err(format!("Missing required key {}.", key));
         }
@@ -30,7 +26,10 @@ fn check_input_files(config: &Value) -> ValidationResult {
 }
 
 
-pub fn unwrap_group(config: &Value, funcs: Vec<&Fn(&Value) -> ValidationResult>) -> ValidationResult {
+pub fn unwrap_group(
+    config: &Value,
+    funcs: Vec<&Fn(&Value) -> ValidationResult>,
+) -> ValidationResult {
     for func in funcs.iter() {
         let func_result = func(config);
         if func_result.is_err() {
@@ -42,8 +41,5 @@ pub fn unwrap_group(config: &Value, funcs: Vec<&Fn(&Value) -> ValidationResult>)
 
 
 pub fn validate(config: &Value) -> ValidationResult {
-    return unwrap_group(config, vec!(
-        &check_required_keys,
-        &check_input_files
-    ));
+    return unwrap_group(config, vec![&check_required_keys, &check_input_files]);
 }

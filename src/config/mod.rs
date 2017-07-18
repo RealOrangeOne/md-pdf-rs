@@ -8,8 +8,7 @@ pub mod consts;
 
 #[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Config {
-    input: Vec<PathBuf>,
-
+    input: Vec<PathBuf>
 }
 
 impl Config {
