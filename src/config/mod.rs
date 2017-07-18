@@ -1,24 +1,31 @@
 use serde_yaml;
+use serde_yaml::Value;
 
 pub mod read;
 pub mod validate;
 pub mod consts;
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Config {
-    foo: String
+    raw: String,
+    input: Vec<String>,
+
 }
 
 impl Config {
     fn new(raw: String) -> Config {
-        return serde_yaml::from_str(&raw).unwrap();
+        let raw_conf: Value = serde_yaml::from_str(&raw).unwrap();
+        return Config {
+            raw: raw,
+            input: read::get_inputs(raw_conf),
+            ..Default::default()
+        };
     }
 }
 
 
-pub fn get_config() {
+pub fn get_config() -> Config {
     let config_str = read::read();
-    let config = Config::new(config_str);
-    println!("{:?}", config);
-    validate::validate(config);
+
+    return Config::new(config_str);
 }

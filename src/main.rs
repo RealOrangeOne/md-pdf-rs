@@ -13,6 +13,7 @@ mod tests;
 fn main() {
     let args = args::get_matches();
     if args.subcommand_name().unwrap() == "build" {
-        config::get_config();
+        println!("{:?}", config::get_config());
     }
 }
+

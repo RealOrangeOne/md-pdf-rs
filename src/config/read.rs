@@ -2,6 +2,7 @@ use std::env::current_dir;
 use std::path::PathBuf;
 use std::fs::File;
 use std::io::Read;
+use serde_yaml::Value;
 
 use config::consts;
 
@@ -18,4 +19,10 @@ pub fn read() -> String {
     let mut contents = String::new();
     config_file.read_to_string(&mut contents).expect("Failed to read file");
     return contents;
+}
+
+
+pub fn get_inputs(conf: Value) -> Vec<String> {
+    let input_values = conf.get("input").unwrap().as_sequence().unwrap().to_vec();
+    return input_values.into_iter().map(|x| x.as_str().unwrap().to_string()).collect();
 }
