@@ -1,2 +1,7 @@
 ---
-foo: bar
+input:
+    - test.md
+    - test2.md
+output:
+    pdf: output.pdf
+title: test title
