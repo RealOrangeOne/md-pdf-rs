@@ -15,7 +15,7 @@ pub struct Config {
 impl Config {
     fn new(raw: Value) -> Config {
         return Config {
-            input: read::get_input_files(raw),
+            input: read::get_input_files(&raw),
             ..Default::default()
         };
     }

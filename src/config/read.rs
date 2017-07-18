@@ -22,7 +22,7 @@ pub fn read() -> String {
 }
 
 
-pub fn get_input_files(conf: Value) -> Vec<PathBuf> {
+pub fn get_input_files(conf: &Value) -> Vec<PathBuf> {
     let working_dir = current_dir().unwrap();
     let input_values = conf.get("input").unwrap().as_sequence().unwrap().to_vec();
     return input_values.into_iter().map(|x| working_dir.join(x.as_str().unwrap().to_string())).collect();
