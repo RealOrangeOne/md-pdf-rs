@@ -3,6 +3,7 @@ use std::path::PathBuf;
 use std::fs::File;
 use std::io::Read;
 use serde_yaml::Value;
+use std::collections::HashMap;
 
 use config::consts;
 
@@ -29,4 +30,15 @@ pub fn get_input_files(conf: &Value) -> Vec<PathBuf> {
         .into_iter()
         .map(|x| working_dir.join(x.as_str().unwrap().to_string()))
         .collect();
+}
+
+
+pub fn get_output_files(conf: &Value) -> HashMap<String, PathBuf> {
+    let working_dir = current_dir().unwrap();
+    let output_raw = conf.get("output").unwrap().as_mapping().unwrap();
+    let mut output_map : HashMap<String, PathBuf> = HashMap::new();
+    for output in output_raw.into_iter() {
+        output_map.insert(output.0.as_str().unwrap().to_string(), working_dir.join(output.1.as_str().unwrap().to_string()));
+    }
+    return output_map;
 }
