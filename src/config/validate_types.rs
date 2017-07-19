@@ -57,8 +57,5 @@ fn check_title(config: &Value) -> ValidationResult {
 
 
 pub fn check_config_types(config: &Value) -> ValidationResult {
-    return unwrap_group(
-        config,
-        vec![&check_root, &check_input, &check_output, &check_title]
-    );
+    return unwrap_group(config, vec![&check_root, &check_input, &check_output, &check_title]);
 }
