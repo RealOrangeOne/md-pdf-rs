@@ -6,6 +6,8 @@ use std::collections::HashMap;
 pub mod read;
 pub mod validate;
 pub mod consts;
+pub mod validate_types;
+
 
 #[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Config {
