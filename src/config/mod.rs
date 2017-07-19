@@ -10,7 +10,8 @@ pub mod consts;
 #[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Config {
     input: Vec<PathBuf>,
-    output: HashMap<String, PathBuf>
+    output: HashMap<String, PathBuf>,
+    title: String
 }
 
 impl Config {
@@ -18,6 +19,7 @@ impl Config {
         return Config {
             input: read::get_input_files(&raw),
             output: read::get_output_files(&raw),
+            title: read::get_string(&raw, "title"),
             ..Default::default()
         };
     }
