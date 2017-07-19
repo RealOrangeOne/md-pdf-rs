@@ -18,7 +18,7 @@ fn check_required_keys(config: &Value) -> ValidationResult {
 fn check_input_files(config: &Value) -> ValidationResult {
     match config.get("input").unwrap() {
         &Value::Sequence(_) => (),
-        _ => return Err("Input must be sequence".into())
+        _ => return Err("Input must be sequence".into()),
     }
     let files = read::get_input_files(config);
 
@@ -33,7 +33,7 @@ fn check_input_files(config: &Value) -> ValidationResult {
 fn check_output_files(config: &Value) -> ValidationResult {
     match config.get("output").unwrap() {
         &Value::Mapping(_) => (),
-        _ => return Err("Output must be mapping".into())
+        _ => return Err("Output must be mapping".into()),
     }
     let files = read::get_output_files(config);
     let output_types = vec!["pdf".into()];
@@ -64,5 +64,8 @@ pub fn unwrap_group(
 
 
 pub fn validate(config: &Value) -> ValidationResult {
-    return unwrap_group(config, vec![&check_required_keys, &check_input_files, &check_output_files]);
+    return unwrap_group(
+        config,
+        vec![&check_required_keys, &check_input_files, &check_output_files]
+    );
 }

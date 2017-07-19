@@ -30,5 +30,5 @@ pub fn get_config() -> Config {
     let config_str = read::read();
     let config_value: Value = serde_yaml::from_str(&config_str).unwrap();
     validate::validate(&config_value).expect("Validation Error");
-     return Config::new(config_value);
+    return Config::new(config_value);
 }

@@ -36,20 +36,16 @@ pub fn get_string(conf: &Value, key: &str) -> String {
 pub fn get_input_files(conf: &Value) -> Vec<PathBuf> {
     let working_dir = current_dir().unwrap();
     let input_values = conf.get("input").unwrap().as_sequence().unwrap().to_vec();
-    return input_values
-        .into_iter()
-        .map(|x| working_dir.join(to_string(&x)))
-        .collect();
+    return input_values.into_iter().map(|x| working_dir.join(to_string(&x))).collect();
 }
 
 
 pub fn get_output_files(conf: &Value) -> HashMap<String, PathBuf> {
     let working_dir = current_dir().unwrap();
     let output_raw = conf.get("output").unwrap().as_mapping().unwrap();
-    let mut output_map : HashMap<String, PathBuf> = HashMap::new();
+    let mut output_map: HashMap<String, PathBuf> = HashMap::new();
     for output in output_raw.into_iter() {
         output_map.insert(to_string(output.0), working_dir.join(to_string(output.1)));
     }
     return output_map;
 }
-
