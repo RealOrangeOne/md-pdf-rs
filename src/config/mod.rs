@@ -11,9 +11,9 @@ pub mod validate_types;
 
 #[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Config {
-    input: Vec<PathBuf>,
-    output: HashMap<String, PathBuf>,
-    title: String
+    pub input: Vec<PathBuf>,
+    pub output: HashMap<String, PathBuf>,
+    pub title: String
 }
 
 impl Config {

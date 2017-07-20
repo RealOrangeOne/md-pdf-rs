@@ -8,6 +8,8 @@ extern crate serde_yaml;
 
 mod args;
 mod config;
+mod process;
+mod input;
 
 #[cfg(test)]
 mod tests;
@@ -15,6 +17,7 @@ mod tests;
 fn main() {
     let args = args::get_matches();
     if args.subcommand_name().unwrap() == "build" {
-        println!("{:?}", config::get_config());
+        let config = config::get_config();
+        process::build(config);
     }
 }
