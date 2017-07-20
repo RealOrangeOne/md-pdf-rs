@@ -5,7 +5,6 @@ extern crate serde_derive;
 
 extern crate serde_yaml;
 
-
 mod args;
 mod config;
 mod process;
@@ -17,7 +16,8 @@ mod tests;
 fn main() {
     let args = args::get_matches();
     if args.subcommand_name().unwrap() == "build" {
-        let config = config::get_config();
+        let mut config = config::get_config();
+        config.verbosity = args::get_verbose(args);
         process::build(config);
     }
 }

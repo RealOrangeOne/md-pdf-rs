@@ -13,7 +13,8 @@ pub mod validate_types;
 pub struct Config {
     pub input: Vec<PathBuf>,
     pub output: HashMap<String, PathBuf>,
-    pub title: String
+    pub title: String,
+    pub verbosity: u64,
 }
 
 impl Config {
