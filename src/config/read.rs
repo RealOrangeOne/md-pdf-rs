@@ -15,11 +15,22 @@ fn get_config_path() -> PathBuf {
 }
 
 
-pub fn read() -> String {
-    let mut config_file = File::open(get_config_path()).expect("Failed to open file");
+pub fn read() -> Result<String, String> {
+    let config_path = get_config_path();
+    if !config_path.is_file() {
+        return Err(format!("Failed to find config file at {}.", config_path.display()));
+    }
+    let file = File::open(config_path);
+    if file.is_err() {
+        return Err("Failed to open file".into());
+    }
+    let mut config_file = file.unwrap();
     let mut contents = String::new();
-    config_file.read_to_string(&mut contents).expect("Failed to read file");
-    return contents;
+    let file_read = config_file.read_to_string(&mut contents);
+    if file_read.is_err() {
+        return Err("Failed to read config file".into());
+    }
+    return Ok(contents);
 }
 
 

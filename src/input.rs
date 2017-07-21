@@ -3,11 +3,16 @@ use std::io::Read;
 use std::path::PathBuf;
 
 
-pub fn read_input_files(files: Vec<PathBuf>) -> String {
+pub fn read_input_files(files: Vec<PathBuf>) -> Result<String, String> {
     let mut input = String::new();
     for input_file_path in files.iter() {
-        let mut input_file = File::open(input_file_path).expect("Unable to open file");
-        input_file.read_to_string(&mut input).expect("Failed to read file");
+        let input_file_result = File::open(input_file_path);
+        if input_file_result.is_err() {
+            return Err(format!("Failed to open input file {}.", input_file_path.display()));
+        }
+        if input_file_result.unwrap().read_to_string(&mut input).is_err() {
+            return Err(format!("Failed to read input file {}.", input_file_path.display()));
+        }
     }
-    return input;
+    return Ok(input);
 }

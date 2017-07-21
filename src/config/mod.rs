@@ -29,9 +29,19 @@ impl Config {
 }
 
 
-pub fn get_config() -> Config {
+pub fn get_config() -> Result<Config, String> {
     let config_str = read::read();
-    let config_value: Value = serde_yaml::from_str(&config_str).unwrap();
-    validate::validate(&config_value).expect("Validation Error");
-    return Config::new(config_value);
+    if config_str.is_err() {
+        return Err(config_str.unwrap_err());
+    }
+    let config_value = serde_yaml::from_str(&config_str.unwrap());
+    if config_value.is_err() {
+        return Err(format!("Failed to parse config. {}", config_value.unwrap_err()));
+    }
+    let config = config_value.unwrap();
+    let validation_output = validate::validate(&config);
+    if validation_output.is_err() {
+        return Err(format!("Validation error: {}", validation_output.unwrap_err()));
+    };
+    return Ok(Config::new(config));
 }

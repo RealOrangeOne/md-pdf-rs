@@ -16,7 +16,7 @@ mod tests;
 fn main() {
     let args = args::get_matches();
     if args.subcommand_name().unwrap() == "build" {
-        let mut config = config::get_config();
+        let mut config = config::get_config().unwrap();
         config.verbosity = args::get_verbose(args);
         process::build(config);
     }
