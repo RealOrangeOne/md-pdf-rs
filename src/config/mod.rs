@@ -2,6 +2,7 @@ use serde_yaml;
 use serde_yaml::Value;
 use std::path::PathBuf;
 use std::collections::HashMap;
+use utils::result_prefix;
 
 pub mod read;
 pub mod validate;
@@ -30,18 +31,8 @@ impl Config {
 
 
 pub fn get_config() -> Result<Config, String> {
-    let config_str = read::read();
-    if config_str.is_err() {
-        return Err(config_str.unwrap_err());
-    }
-    let config_value = serde_yaml::from_str(&config_str.unwrap());
-    if config_value.is_err() {
-        return Err(format!("Failed to parse config. {}", config_value.unwrap_err()));
-    }
-    let config = config_value.unwrap();
-    let validation_output = validate::validate(&config);
-    if validation_output.is_err() {
-        return Err(format!("Validation error: {}", validation_output.unwrap_err()));
-    };
+    let config_str = try!(read::read());
+    let config = try!(result_prefix(serde_yaml::from_str(&config_str), "Config Parse Error".into()));
+    try!(result_prefix(validate::validate(&config), "Config Validation Error".into()));
     return Ok(Config::new(config));
 }

@@ -47,10 +47,7 @@ pub fn unwrap_group(
     funcs: Vec<&Fn(&Value) -> ValidationResult>,
 ) -> ValidationResult {
     for func in funcs.iter() {
-        let func_result = func(config);
-        if func_result.is_err() {
-            return Err(func_result.unwrap_err());
-        }
+        try!(func(config));
     }
     return Ok(());
 }

@@ -6,7 +6,7 @@ use serde_yaml::Value;
 use std::collections::HashMap;
 
 use config::consts;
-
+use utils::result_override;
 
 fn get_config_path() -> PathBuf {
     let mut working_dir = current_dir().unwrap();
@@ -14,22 +14,11 @@ fn get_config_path() -> PathBuf {
     return working_dir;
 }
 
-
 pub fn read() -> Result<String, String> {
     let config_path = get_config_path();
-    if !config_path.is_file() {
-        return Err(format!("Failed to find config file at {}.", config_path.display()));
-    }
-    let file = File::open(config_path);
-    if file.is_err() {
-        return Err("Failed to open file".into());
-    }
-    let mut config_file = file.unwrap();
+    let mut config_file = try!(result_override(File::open(&config_path), format!("Unable to find config file at {}", config_path.display())));
     let mut contents = String::new();
-    let file_read = config_file.read_to_string(&mut contents);
-    if file_read.is_err() {
-        return Err("Failed to read config file".into());
-    }
+    try!(result_override(config_file.read_to_string(&mut contents), format!("Failed to read config file at {}.", config_path.display())));
     return Ok(contents);
 }
 
