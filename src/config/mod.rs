@@ -32,7 +32,8 @@ impl Config {
 
 pub fn get_config() -> Result<Config, String> {
     let config_str = try!(read::read());
-    let config = try!(result_prefix(serde_yaml::from_str(&config_str), "Config Parse Error".into()));
+    let config =
+        try!(result_prefix(serde_yaml::from_str(&config_str), "Config Parse Error".into()));
     try!(result_prefix(validate::validate(&config), "Config Validation Error".into()));
     return Ok(Config::new(config));
 }
