@@ -16,7 +16,7 @@ fn incorrect_subcommand() {
 #[test]
 fn verbose_number() {
     fn get_verbose_level(arg_list: Vec<&str>) -> u64 {
-        return args::get_verbose(args::get_matches_for(arg_list).unwrap());
+        return args::get_verbose(&args::get_matches_for(arg_list).unwrap());
     }
 
     assert_eq!(get_verbose_level(vec!["mdp", "build", "-v"]), 1);

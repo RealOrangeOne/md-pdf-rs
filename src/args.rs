@@ -37,7 +37,7 @@ pub fn get_matches_for(args: Vec<&str>) -> Result<ArgMatches<'static>> {
     return build().get_matches_from_safe(args);
 }
 
-pub fn get_verbose(m: ArgMatches) -> u64 {
+pub fn get_verbose(m: &ArgMatches) -> u64 {
     let sub = m.subcommand_matches(&m.subcommand_name().unwrap()).unwrap();
     m.occurrences_of("verbose") + sub.occurrences_of("verbose")
 }
