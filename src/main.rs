@@ -32,7 +32,7 @@ fn ok_or_exit<T>(res: Result<T, String>) -> T {
     };
 }
 
-fn get_config(args: &ArgMatches) -> Config {
+fn get_config(args: ArgMatches) -> Config {
     let mut config = ok_or_exit(config::get_config());
     config.verbosity = args::get_verbose(args);
     return config;
@@ -45,7 +45,7 @@ fn main() {
 
     match subcommand {
         "build" => {
-            let config = get_config(&args);
+            let config = get_config(args.clone());
             ok_or_exit(process::build(config));
         }
         cmd => {

@@ -2,14 +2,14 @@ use config::validate::{unwrap_group, ValidationResult};
 use serde_yaml::Value;
 
 
-fn check_root(config: &Value) -> ValidationResult {
+fn check_root(config: Value) -> ValidationResult {
     if !config.is_mapping() {
         return Err("Config should be a mapping".into());
     }
     return Ok(());
 }
 
-fn check_input(config: &Value) -> ValidationResult {
+fn check_input(config: Value) -> ValidationResult {
     let input = config.get("input").unwrap();
     if !input.is_sequence() {
         return Err("Input must be sequence".into());
@@ -27,7 +27,7 @@ fn check_input(config: &Value) -> ValidationResult {
     return Ok(());
 }
 
-fn check_output(config: &Value) -> ValidationResult {
+fn check_output(config: Value) -> ValidationResult {
     let output = config.get("output").unwrap();
     if !output.is_mapping() {
         return Err("Output must be mapping".into());
@@ -48,7 +48,7 @@ fn check_output(config: &Value) -> ValidationResult {
     return Ok(());
 }
 
-fn check_title(config: &Value) -> ValidationResult {
+fn check_title(config: Value) -> ValidationResult {
     if !config.get("title").unwrap().is_string() {
         return Err("Title should be a string".into());
     }
@@ -56,6 +56,6 @@ fn check_title(config: &Value) -> ValidationResult {
 }
 
 
-pub fn check_config_types(config: &Value) -> ValidationResult {
+pub fn check_config_types(config: Value) -> ValidationResult {
     return unwrap_group(config, vec![&check_root, &check_input, &check_output, &check_title]);
 }

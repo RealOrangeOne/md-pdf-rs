@@ -7,7 +7,7 @@ use config::read;
 use config::validate_types::check_config_types;
 
 
-fn check_required_keys(config: &Value) -> ValidationResult {
+fn check_required_keys(config: Value) -> ValidationResult {
     for key in vec!["input", "output", "title"].iter() {
         if config.get(key).is_none() {
             return Err(format!("Missing required key {}.", key));
@@ -16,7 +16,7 @@ fn check_required_keys(config: &Value) -> ValidationResult {
     return Ok(());
 }
 
-fn check_input_files(config: &Value) -> ValidationResult {
+fn check_input_files(config: Value) -> ValidationResult {
     let files = read::get_input_files(config);
 
     for file in files.iter() {
@@ -27,7 +27,7 @@ fn check_input_files(config: &Value) -> ValidationResult {
     return Ok(());
 }
 
-fn check_output_files(config: &Value) -> ValidationResult {
+fn check_output_files(config: Value) -> ValidationResult {
     let files = read::get_output_files(config);
     let output_types = vec!["pdf".into()];
     for file_def in files.iter() {
@@ -42,18 +42,15 @@ fn check_output_files(config: &Value) -> ValidationResult {
     return Ok(());
 }
 
-pub fn unwrap_group(
-    config: &Value,
-    funcs: Vec<&Fn(&Value) -> ValidationResult>,
-) -> ValidationResult {
+pub fn unwrap_group(config: Value, funcs: Vec<&Fn(Value) -> ValidationResult>) -> ValidationResult {
     for func in funcs.iter() {
-        try!(func(config));
+        try!(func(config.clone()));
     }
     return Ok(());
 }
 
 
-pub fn validate(config: &Value) -> ValidationResult {
+pub fn validate(config: Value) -> ValidationResult {
     return unwrap_group(
         config,
         vec![&check_required_keys, &check_config_types, &check_input_files, &check_output_files]

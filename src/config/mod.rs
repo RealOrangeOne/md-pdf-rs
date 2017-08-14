@@ -10,7 +10,7 @@ pub mod consts;
 pub mod validate_types;
 
 
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone)]
 pub struct Config {
     pub input: Vec<PathBuf>,
     pub output: HashMap<String, PathBuf>,
@@ -21,8 +21,8 @@ pub struct Config {
 impl Config {
     fn new(raw: Value) -> Config {
         return Config {
-            input: read::get_input_files(&raw),
-            output: read::get_output_files(&raw),
+            input: read::get_input_files(raw.clone()),
+            output: read::get_output_files(raw.clone()),
             title: read::get_string(&raw, "title"),
             ..Default::default()
         };
@@ -32,8 +32,8 @@ impl Config {
 
 pub fn get_config() -> Result<Config, String> {
     let config_str = try!(read::read());
-    let config =
+    let config: Value =
         try!(result_prefix(serde_yaml::from_str(&config_str), "Config Parse Error".into()));
-    try!(result_prefix(validate::validate(&config), "Config Validation Error".into()));
+    try!(result_prefix(validate::validate(config.clone()), "Config Validation Error".into()));
     return Ok(Config::new(config));
 }
