@@ -4,6 +4,7 @@ extern crate clap;
 extern crate serde_derive;
 
 extern crate serde_yaml;
+extern crate pandoc;
 
 use std::io::{self, Write};
 use std::process::exit;
@@ -13,6 +14,7 @@ mod config;
 mod process;
 mod input;
 mod utils;
+mod build;
 
 #[cfg(test)]
 mod tests;
