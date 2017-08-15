@@ -9,7 +9,7 @@ jobs:
             - checkout
             - restore_cache:
                 keys:
-                    - cargo
+                    - cargo-{{ checksum "Cargo.lock" }}
             - run: which rustfmt || cargo install rustfmt
             - run: apt update && apt install -y wget
             - run: ./scripts/install-deps.sh
@@ -17,7 +17,7 @@ jobs:
             - run: cargo build
             - run: cargo build --release
             - save_cache:
-                key: cargo
+                key: cargo-{{ checksum "Cargo.lock" }}
                 paths:
                     - ~/.cargo
             - run: cargo test
