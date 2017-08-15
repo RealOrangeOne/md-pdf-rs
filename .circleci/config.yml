@@ -1,0 +1,18 @@
+version: 2.0
+
+jobs:
+    build:
+        docker:
+            - image: jimmycuadra/rust
+        working_directory: ~/md-pdf
+        steps:
+            - checkout
+            - run: which rustfmt || cargo install rustfmt
+            - run: ./scripts/install-deps.sh
+            - run: cargo fmt -- --write-mode=diff
+            - run: cargo build
+            - run: cargo build --release
+            - run: cargo test
+            - run: cargo test --release
+            - run: cd test-files && cargo run --release -- build
+            - run: cd test-files && cargo run -- build
