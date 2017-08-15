@@ -7,7 +7,14 @@ jobs:
         working_directory: ~/md-pdf
         steps:
             - checkout
+            - restore_cache:
+                keys:
+                    - cargo
             - run: which rustfmt || cargo install rustfmt
+            - save_cache:
+                key: cargo
+                paths:
+                    - ~/.cargo
             - run: ./scripts/install-deps.sh
             - run: cargo fmt -- --write-mode=diff
             - run: cargo build
