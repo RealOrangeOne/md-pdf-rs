@@ -22,5 +22,3 @@ jobs:
                     - ~/.cargo
             - run: cargo test
             - run: cargo test --release
-            - run: cd test-files && cargo run --release -- build
-            - run: cd test-files && cargo run -- build
