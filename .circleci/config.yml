@@ -15,6 +15,7 @@ jobs:
                 key: cargo
                 paths:
                     - ~/.cargo
+            - run: sudo apt install -y wget
             - run: ./scripts/install-deps.sh
             - run: cargo fmt -- --write-mode=diff
             - run: cargo build
