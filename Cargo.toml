@@ -5,7 +5,7 @@ authors = ["Jake Howard <git@theorangeone.net>"]
 
 [dependencies]
 clap = "2.25.0"
-pandoc = { git = "https://github.com/RealOrangeOne/rust-pandoc" }
+pandoc = "0.6.2"
 serde = "1.0.10"
 serde_derive = "1.0.10"
 serde_yaml = "0.7.1"
