@@ -1,6 +1,5 @@
 use config::Config;
-use pandoc::{Pandoc, OutputFormat, InputFormat, InputKind, OutputKind, PandocOutput, PandocError,
-             PandocOption};
+use pandoc::{self, Pandoc, PandocOutput, PandocError};
 use std::env::{current_dir, current_exe};
 use std::path::PathBuf;
 use std::error::Error;
@@ -15,16 +14,16 @@ fn add_path_hints(pandoc: &mut Pandoc, path: &mut PathBuf) {
 
 
 fn execute_pandoc(config: Config, input: String) -> Result<PandocOutput, PandocError> {
-    let mut pandoc = Pandoc::new();
-    pandoc.set_output_format(OutputFormat::Html5, vec![]);
-    pandoc.set_input_format(InputFormat::Markdown, vec![]);
-    pandoc.set_input(InputKind::Pipe(input));
-    pandoc.set_output(OutputKind::Pipe);
-    pandoc.add_option(PandocOption::Smart);
-    pandoc.add_option(PandocOption::Standalone);
-    add_path_hints(&mut pandoc, &mut current_exe().unwrap());
-    add_path_hints(&mut pandoc, &mut current_dir().unwrap());
-    return pandoc.execute();
+    let mut renderer = Pandoc::new();
+    renderer.set_output_format(pandoc::OutputFormat::Html5, vec![]);
+    renderer.set_input_format(pandoc::InputFormat::Markdown, vec![]);
+    renderer.set_input(pandoc::InputKind::Pipe(input));
+    renderer.set_output(pandoc::OutputKind::Pipe);
+    renderer.add_option(pandoc::PandocOption::Smart);
+    renderer.add_option(pandoc::PandocOption::Standalone);
+    add_path_hints(&mut renderer, &mut current_exe().unwrap());
+    add_path_hints(&mut renderer, &mut current_dir().unwrap());
+    return renderer.execute();
 }
 
 
@@ -34,7 +33,7 @@ pub fn render(config: Config, input: String) -> Result<String, String> {
         return Err(output.err().unwrap().description().into());
     }
     return match output.unwrap() {
-        PandocOutput::ToBuffer(out) => Ok(out),
+        pandoc::PandocOutput::ToBuffer(out) => Ok(out),
         _ => Err("Incorrect output type.".into()),
     };
 }
