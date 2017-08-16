@@ -24,5 +24,8 @@ jobs:
             - run: cargo test
             - run: cargo test --release
             - run:
+                command: cargo run -- build
+                working_directory: ~/md-pdf/test-files
+            - run:
                 command: cargo run --release -- build
                 working_directory: ~/md-pdf/test-files
