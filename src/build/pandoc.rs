@@ -7,7 +7,7 @@ use std::error::Error;
 fn add_path_hints(pandoc: &mut Pandoc, path: &mut PathBuf) {
     let mut out = true;
     while out {
-        pandoc.add_pandoc_path_hint(&path.join("lib"));
+        pandoc.add_pandoc_path_hint(path);
         out = path.pop();
     }
 }

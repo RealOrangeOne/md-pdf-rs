@@ -10,3 +10,10 @@ serde = "1.0.10"
 serde_derive = "1.0.10"
 serde_yaml = "0.7.1"
 wkhtmltopdf = "0.3.0"
+
+[profile.dev]
+rpath = true
+
+[profile.release]
+rpath = true
+lto = true
