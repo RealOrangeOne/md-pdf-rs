@@ -13,6 +13,7 @@ jobs:
             - run: which rustfmt || cargo install rustfmt
             - run: apt update && apt install -y wget
             - run: make lib
+            - run: ./.circleci/wkhtmltopdf.sh
             - run: cargo fmt -- --write-mode=diff
             - run: make build
             - run: make release
