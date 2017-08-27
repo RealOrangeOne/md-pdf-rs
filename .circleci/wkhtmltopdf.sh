@@ -8,9 +8,8 @@ apt-get install wkhtmltopdf xvfb -y
 
 wget https://downloads.wkhtmltopdf.org/0.12/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz
 tar -xJf wkhtmltox-0.12.4_linux-generic-amd64.tar.xz
-cd wkhtmltox
-chown root:root bin/wkhtmltopdf
-cp -r * /usr/
+cp -r wkhtmltox/lib/* /usr/lib
+rm -rf wkhtmltox
 
 echo -e '#!/bin/bash\nxvfb-run -a --server-args="-screen 0, 1024x768x24" /usr/bin/wkhtmltopdf $*' > /usr/bin/wkhtmltopdf.sh
 chmod a+x /usr/bin/wkhtmltopdf.sh
