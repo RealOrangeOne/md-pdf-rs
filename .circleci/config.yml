@@ -12,7 +12,7 @@ jobs:
                     - cargo-{{ checksum "Cargo.lock" }}
             - run: which rustfmt || cargo install rustfmt
             - run: apt update && apt install -y wget
-            - run: ./scripts/install-deps.sh
+            - run: make lib
             - run: cargo fmt -- --write-mode=diff
             - run: cargo build
             - run: cargo build --release
