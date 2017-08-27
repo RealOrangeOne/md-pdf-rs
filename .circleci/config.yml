@@ -14,15 +14,14 @@ jobs:
             - run: apt update && apt install -y wget
             - run: make lib
             - run: cargo fmt -- --write-mode=diff
-            - run: cargo build
-            - run: cargo build --release
+            - run: make build
+            - run: make release
             - save_cache:
                 key: cargo-{{ checksum "Cargo.lock" }}
                 paths:
                     - ~/.cargo
                     - target/
-            - run: cargo test
-            - run: cargo test --release
+            - run: make test
             - run:
                 command: cargo run -- build
                 working_directory: ~/md-pdf/test-files

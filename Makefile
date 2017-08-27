@@ -33,4 +33,8 @@ wktox: lib_path
 
 lib: pandoc wktox
 
+test:
+	cargo test
+	cargo test --release
+
 .PHONY: build pandoc lib_path wktox
