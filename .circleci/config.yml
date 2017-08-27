@@ -21,7 +21,6 @@ jobs:
                 key: cargo-{{ checksum "Cargo.lock" }}
                 paths:
                     - ~/.cargo
-                    - target/
             - run: make test
             - run:
                 command: cargo run -- build
