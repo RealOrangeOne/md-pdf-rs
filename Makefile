@@ -6,6 +6,15 @@ WKTOX_VERSION=0.12.4
 PANDOC_DL=pandoc-${PANDOC_VERSION}-1-amd64.deb
 WKTOX_DL=wkhtmltox-${WKTOX_VERSION}_linux-generic-amd64.tar.xz
 
+
+build:
+	@cargo build
+	cp $(LIB_DIR)/* target/debug/
+
+release:
+	@cargo build --release
+	cp $(LIB_DIR)/* target/release/
+
 lib_path:
 	@rm -rf $(LIB_DIR)
 	@mkdir -p $(LIB_DIR)
@@ -24,5 +33,4 @@ wktox: lib_path
 
 lib: pandoc wktox
 
-.PHONY: pandoc lib_path wktox
-
+.PHONY: build pandoc lib_path wktox
