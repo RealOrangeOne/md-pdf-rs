@@ -18,6 +18,7 @@ release:
 lib_path:
 	@rm -rf $(LIB_DIR)
 	@mkdir -p $(LIB_DIR)
+	@rm -f /usr/lib/libsciter-gtk-64.so
 
 pandoc: lib_path
 	wget https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/${PANDOC_DL} -O $(LIB_DIR)/$(PANDOC_DL)
@@ -34,6 +35,7 @@ wktox: lib_path
 sciter: lib_path
 	wget https://sciter.com/sdk/sciter-sdk.zip -O $(LIB_DIR)/sciter.zip
 	unzip -j $(LIB_DIR)/sciter.zip "bin.gtk/libsciter-gtk-64.so" -d $(LIB_DIR)
+	ln -sfP $(LIB_DIR)/libsciter-gtk-64.so /usr/lib/libsciter-gtk-64.so
 	rm $(LIB_DIR)/sciter.zip
 
 lib: pandoc wktox sciter
