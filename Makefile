@@ -31,7 +31,12 @@ wktox: lib_path
 	mv $(LIB_DIR)/wkhtmltox/lib/* $(LIB_DIR)
 	cd $(LIB_DIR) && rm -r wkhtmltox/ $(WKTOX_DL)
 
-lib: pandoc wktox
+sciter: lib_path
+	wget https://sciter.com/sdk/sciter-sdk.zip -O $(LIB_DIR)/sciter.zip
+	unzip $(LIB_DIR)/sciter.zip "bin.gtk/libsciter-gtk-64.so" -d $(LIB_DIR)
+	rm $(LIB_DIR)/sciter.zip
+
+lib: pandoc wktox sciter
 
 test:
 	cargo test
