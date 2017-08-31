@@ -33,7 +33,7 @@ wktox: lib_path
 
 sciter: lib_path
 	wget https://sciter.com/sdk/sciter-sdk.zip -O $(LIB_DIR)/sciter.zip
-	unzip $(LIB_DIR)/sciter.zip "bin.gtk/libsciter-gtk-64.so" -d $(LIB_DIR)
+	unzip -j $(LIB_DIR)/sciter.zip "bin.gtk/libsciter-gtk-64.so" -d $(LIB_DIR)
 	rm $(LIB_DIR)/sciter.zip
 
 lib: pandoc wktox sciter
