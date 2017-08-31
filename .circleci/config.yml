@@ -11,7 +11,7 @@ jobs:
                 keys:
                     - cargo-{{ checksum "Cargo.lock" }}
             - run: which rustfmt || cargo install rustfmt
-            - run: apt update && apt install -y wget
+            - run: apt update && apt install -y wget unzip
             - run: make lib
             - run: ./.circleci/wkhtmltopdf.sh
             - run: cargo fmt -- --write-mode=diff
