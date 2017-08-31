@@ -6,6 +6,7 @@ extern crate serde_derive;
 extern crate serde_yaml;
 extern crate pandoc;
 extern crate wkhtmltopdf;
+extern crate sciter;
 
 use std::io::{self, Write};
 use std::process::exit;
