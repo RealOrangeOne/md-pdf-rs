@@ -10,4 +10,3 @@ pub fn html_cleanup(config: Config, input: String) -> Result<String, String> {
     let html = get_html(root);
     return Ok(html);
 }
-
