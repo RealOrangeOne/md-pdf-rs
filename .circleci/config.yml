@@ -23,8 +23,8 @@ jobs:
                     - ~/.cargo
             - run: make test
             - run:
-                command: ./.circleci/xserver.sh cargo run -- build
+                command: ../.circleci/xserver.sh cargo run -- build
                 working_directory: ~/md-pdf/test-files
             - run:
-                command: ./.circleci/xserver.sh cargo run --release -- build
+                command: ../.circleci/xserver.sh cargo run --release -- build
                 working_directory: ~/md-pdf/test-files
