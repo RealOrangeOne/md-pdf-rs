@@ -1,9 +1,6 @@
 use config::Config;
 
-
-fn stub(config: Config, input: String) -> Result<String, String> {
-    return Ok(input);
-}
+use renderers::stub;
 
 pub fn render(config: Config, input: String) -> Result<String, String> {
     let mut rendered_input = input;

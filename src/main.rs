@@ -18,6 +18,7 @@ mod input;
 mod utils;
 mod build;
 mod output;
+mod renderers;
 
 #[cfg(test)]
 mod tests;
