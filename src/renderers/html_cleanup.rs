@@ -1,4 +1,4 @@
-use renderers::helpers::{sciter_start, get_html};
+use renderers::{sciter_start, get_html};
 use config::Config;
 
 
