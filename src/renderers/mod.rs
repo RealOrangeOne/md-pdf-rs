@@ -19,5 +19,28 @@ fn sciter_start(source: String) -> Element {
 }
 
 fn get_html(element: Element) -> String {
-    return String::from_utf8(element.get_html(true)).expect("Failed to get HTML from element");
+    return String::from_utf8(element.get_html(true)).expect(&format!(
+        "Failed to get HTML from {}.",
+        element.get_tag()
+    ));
+}
+
+fn find_first(root: &mut Element, selector: &str) -> Element {
+    return root.find_first(selector).expect(&format!("Failed to get {}.", selector)).expect(
+        &format!(
+            "Couldn't find any {}.",
+            selector
+        )
+    );
+}
+
+fn destroy_matching(root: &mut Element, selector: &str) {
+    let mut matches = root.find_all(selector).expect(&format!("Failed to get {}.", selector));
+    if matches.is_none() {
+        return;
+    }
+
+    for mut ele in matches.unwrap() {
+        ele.destroy().expect("Failed to delete");
+    }
 }
