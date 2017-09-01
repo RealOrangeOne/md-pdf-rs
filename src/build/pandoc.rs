@@ -6,7 +6,7 @@ use std::error::Error;
 
 fn execute_pandoc(config: Config, input: String) -> Result<PandocOutput, PandocError> {
     let mut renderer = Pandoc::new();
-    renderer.set_output_format(pandoc::OutputFormat::Html5, vec![]);
+    renderer.set_output_format(pandoc::OutputFormat::Html, vec![]);
     renderer.set_input_format(pandoc::InputFormat::Markdown, vec![]);
     renderer.set_input(pandoc::InputKind::Pipe(input));
     renderer.set_output(pandoc::OutputKind::Pipe);
