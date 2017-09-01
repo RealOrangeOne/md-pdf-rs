@@ -1,7 +1,10 @@
 ---
 input:
-    - test.md
-    - test2.md
+    - intro.md
+    - pandoc.md
+    - image.md
+    - ipsum.md
+    - end.md
 output:
     pdf: output.pdf
 title: test title
