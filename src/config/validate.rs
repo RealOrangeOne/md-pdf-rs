@@ -30,6 +30,9 @@ fn check_input_files(config: Value) -> ValidationResult {
 fn check_output_files(config: Value) -> ValidationResult {
     let files = read::get_output_files(config);
     let output_types = vec!["pdf".into()];
+    if files.is_empty() {
+        return Err("You need to provide at least 1 output format".into());
+    }
     for file_def in files.iter() {
         let dir = file_def.1.parent().unwrap();
         if !dir.exists() || !dir.is_dir() {
