@@ -1,5 +1,4 @@
 use config::Config;
-use std::char;
 
 use renderers::html_cleanup::html_cleanup;
 use renderers::strip_blank::strip_blank;

@@ -1,10 +1,9 @@
-use config::Config;
 use pandoc::{self, Pandoc, PandocOutput, PandocError};
-use std::env::{current_dir, current_exe};
-use std::path::PathBuf;
+use std::env::current_exe;
 use std::error::Error;
 
-fn execute_pandoc(config: Config, input: String) -> Result<PandocOutput, PandocError> {
+
+fn execute_pandoc(input: String) -> Result<PandocOutput, PandocError> {
     let mut renderer = Pandoc::new();
     renderer.set_output_format(pandoc::OutputFormat::Html, vec![]);
     renderer.set_input_format(pandoc::InputFormat::Markdown, vec![]);
@@ -17,8 +16,8 @@ fn execute_pandoc(config: Config, input: String) -> Result<PandocOutput, PandocE
 }
 
 
-pub fn render(config: Config, input: String) -> Result<String, String> {
-    let output = execute_pandoc(config, input);
+pub fn render(input: String) -> Result<String, String> {
+    let output = execute_pandoc(input);
     if output.is_err() {
         return Err(output.err().unwrap().description().into());
     }

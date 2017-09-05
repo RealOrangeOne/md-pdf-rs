@@ -16,7 +16,7 @@ fn sciter_start(source: String) -> Element {
 }
 
 fn get_html(element: Element) -> String {
-    element.update(true);
+    element.update(true).expect("Failed to update");
     return String::from_utf8(element.get_html(true)).expect(&format!(
         "Failed to get HTML from {}.",
         element.get_tag()
