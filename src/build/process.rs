@@ -1,13 +1,10 @@
 use config::Config;
 
-use processors::html_cleanup::html_cleanup;
-use processors::strip_blank::strip_blank;
+use processors::PROCESSORS;
 
 pub fn render(config: Config, input: String) -> Result<String, String> {
     let mut rendered_input = input;
-    let renderers: Vec<fn(Config, String) -> Result<String, String>> =
-        vec![html_cleanup, strip_blank];
-    for renderer in renderers {
+    for renderer in PROCESSORS.into_iter() {
         rendered_input = try!(renderer(config.clone(), rendered_input));
     }
     return Ok(rendered_input);
