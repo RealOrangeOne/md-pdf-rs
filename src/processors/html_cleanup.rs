@@ -1,4 +1,4 @@
-use renderers::{sciter_start, get_html, destroy_matching, destroy_at, get_head};
+use html::{sciter_start, get_html, destroy_matching, destroy_at, get_head};
 use config::Config;
 
 

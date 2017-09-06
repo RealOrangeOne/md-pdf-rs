@@ -13,27 +13,30 @@ use std::process::exit;
 
 mod args;
 mod config;
-mod process;
 mod input;
 mod utils;
 mod build;
 mod output;
-mod renderers;
+mod processors;
+mod html;
 
 #[cfg(test)]
 mod tests;
 
 use clap::ArgMatches;
+use input::read_input_files;
 use config::Config;
+use build::build_input;
+use output::output;
+use utils::ok_or_exit;
 
-fn ok_or_exit<T>(res: Result<T, String>) -> T {
-    return match res {
-        Ok(k) => k,
-        Err(err) => {
-            writeln!(io::stderr(), "Error: {:?}", err).unwrap();
-            exit(1);
-        }
-    };
+
+fn build(config: Config) -> Result<(), String> {
+    let input = try!(read_input_files(config.input.clone()));
+    let raw_html = try!(build_input(config.clone(), input));
+    println!("{}", raw_html);
+    try!(output(config, raw_html));
+    return Ok(());
 }
 
 fn get_config(args: ArgMatches) -> Config {
@@ -50,7 +53,7 @@ fn main() {
     match subcommand {
         "build" => {
             let config = get_config(args.clone());
-            ok_or_exit(process::build(config));
+            utils::ok_or_exit(build(config));
         }
         cmd => {
             writeln!(io::stderr(), "Unknown command {}.", cmd).unwrap();

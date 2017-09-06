@@ -1,7 +1,7 @@
 use config::Config;
 
-use renderers::html_cleanup::html_cleanup;
-use renderers::strip_blank::strip_blank;
+use processors::html_cleanup::html_cleanup;
+use processors::strip_blank::strip_blank;
 
 pub fn render(config: Config, input: String) -> Result<String, String> {
     let mut rendered_input = input;
