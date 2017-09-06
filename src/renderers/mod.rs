@@ -51,3 +51,11 @@ fn destroy_matching(root: &mut Element, selector: &str) {
         ele.destroy().expect("Failed to delete");
     }
 }
+
+fn get_head(root: &mut Element) -> Element {
+    return find_first(root, "head");
+}
+
+fn get_body(root: &mut Element) -> Element {
+    return find_first(root, "body");
+}
