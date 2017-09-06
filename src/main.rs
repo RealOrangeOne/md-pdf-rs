@@ -19,6 +19,7 @@ mod build;
 mod output;
 mod processors;
 mod html;
+mod assets;
 
 #[cfg(test)]
 mod tests;
