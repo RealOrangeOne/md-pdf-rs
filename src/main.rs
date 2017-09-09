@@ -7,6 +7,8 @@ extern crate serde_yaml;
 extern crate pandoc;
 extern crate wkhtmltopdf;
 extern crate sciter;
+extern crate zip;
+extern crate mktemp;
 
 use std::io::{self, Write};
 use std::process::exit;

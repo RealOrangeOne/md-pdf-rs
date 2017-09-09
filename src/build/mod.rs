@@ -1,5 +1,6 @@
 pub mod pandoc;
 pub mod process;
+mod csl;
 
 use config::Config;
 

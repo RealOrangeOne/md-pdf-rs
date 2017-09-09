@@ -1,6 +1,8 @@
 use std::fmt::Debug;
 use std::process::exit;
 use std::io::{self, Write};
+use std::env::current_exe;
+use std::path::PathBuf;
 
 
 #[inline]
@@ -28,4 +30,13 @@ pub fn ok_or_exit<T>(res: Result<T, String>) -> T {
             exit(1);
         }
     };
+}
+
+#[inline]
+pub fn get_exe_dir() -> PathBuf {
+    return current_exe()
+        .expect("Failed to get exe location")
+        .parent()
+        .expect("Failed to get exe directory")
+        .to_path_buf();
 }
