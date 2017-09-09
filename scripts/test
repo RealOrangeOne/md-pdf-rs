@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -e
+
+echo "> Running debug tests..."
+cargo test
+
+echo "> Running release tests..."
+cargo test --release

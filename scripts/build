@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -e
+
+
+if [ "$1" == "release" ]; then
+    echo ">> Building Release"
+    cargo build --release
+    cp lib/* target/release/
+else
+    cargo build
+    cp lib/* target/debug/
+fi
+
+
