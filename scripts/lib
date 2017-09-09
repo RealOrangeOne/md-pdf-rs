@@ -9,7 +9,8 @@ WKTOX_VERSION=0.12.4
 
 PANDOC_DL=pandoc-${PANDOC_VERSION}-1-amd64.deb
 WKTOX_DL=wkhtmltox-${WKTOX_VERSION}_linux-generic-amd64.tar.xz
-CSL_DL=csl.zip
+CSL_DL=csl-temp.zip
+CSL_TEMP=$LIB_DIR/csl
 
 echo "> Cleaing old lib..."
 rm -rf $LIB_DIR
@@ -22,14 +23,21 @@ ar p ${LIB_DIR}/${PANDOC_DL} data.tar.gz | tar xz --strip-components 2 -C $LIB_D
 mv $LIB_DIR/bin/* $LIB_DIR
 cd $LIB_DIR && rm -r bin/ share/ $PANDOC_DL && cd -
 
-echo "> Install WkHTMLtoPDF..."
+echo "> Installing WkHTMLtoPDF..."
 wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/${WKTOX_VERSION}/${WKTOX_DL} -O $LIB_DIR/$WKTOX_DL
 tar -xJf $LIB_DIR/$WKTOX_DL -C $LIB_DIR
 mv $LIB_DIR/wkhtmltox/lib/* $LIB_DIR
 cd $LIB_DIR && rm -r wkhtmltox/ $WKTOX_DL && cd -
 
-echo "> Install Sciter..."
+echo "> Installing Sciter..."
 wget https://sciter.com/sdk/sciter-sdk.zip -O $LIB_DIR/sciter.zip
 unzip -j $LIB_DIR/sciter.zip "bin.gtk/libsciter-gtk-64.so" -d $LIB_DIR
 sudo ln -sfP $PWD/$LIB_DIR/libsciter-gtk-64.so /usr/lib/libsciter-gtk-64.so
 rm $LIB_DIR/sciter.zip
+
+echo "> Installing CSLs..."
+wget https://github.com/citation-style-language/styles-distribution/archive/master.zip -O $LIB_DIR/$CSL_DL
+unzip $LIB_DIR/$CSL_DL -d $CSL_TEMP
+cd $CSL_TEMP/styles-distribution-master && rm -rf dependent/ README.md renamed-styles.json && cd -
+zip -jr $LIB_DIR/csl.zip $CSL_TEMP/styles-distribution-master
+rm -rf $CSL_TEMP $LIB_DIR/$CSL_DL
