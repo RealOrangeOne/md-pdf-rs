@@ -37,7 +37,7 @@ rm $LIB_DIR/sciter.zip
 
 echo "> Installing CSLs..."
 wget https://github.com/citation-style-language/styles-distribution/archive/master.zip -O $LIB_DIR/$CSL_DL
-unzip $LIB_DIR/$CSL_DL -d $CSL_TEMP
+unzip -q $LIB_DIR/$CSL_DL -d $CSL_TEMP
 cd $CSL_TEMP/styles-distribution-master && rm -rf dependent/ README.md renamed-styles.json && cd -
-zip -jr $LIB_DIR/csl.zip $CSL_TEMP/styles-distribution-master
+zip -jqr $LIB_DIR/csl.zip $CSL_TEMP/styles-distribution-master
 rm -rf $CSL_TEMP $LIB_DIR/$CSL_DL
