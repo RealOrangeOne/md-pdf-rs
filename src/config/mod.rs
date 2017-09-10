@@ -15,7 +15,14 @@ pub struct Config {
     pub input: Vec<PathBuf>,
     pub output: HashMap<String, PathBuf>,
     pub title: String,
-    pub verbosity: u64
+    pub verbosity: u64,
+    pub references: References
+}
+
+#[derive(Debug, Serialize, Deserialize, Default, Clone)]
+pub struct References {
+    pub bibliography: PathBuf,
+    pub csl: PathBuf
 }
 
 impl Config {
@@ -24,6 +31,7 @@ impl Config {
             input: read::get_input_files(raw.clone()),
             output: read::get_output_files(raw.clone()),
             title: read::get_string(&raw, "title"),
+            references: read::get_references(raw.clone()),
             ..Default::default()
         };
     }

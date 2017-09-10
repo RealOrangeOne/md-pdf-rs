@@ -5,8 +5,10 @@ use std::io::Read;
 use serde_yaml::Value;
 use std::collections::HashMap;
 
+use config::csl::unpack_csl;
 use config::consts;
-use utils::result_override;
+use config::References;
+use utils::{result_override, resolve_path};
 
 fn get_config_path() -> PathBuf {
     let mut working_dir = current_dir().unwrap();
@@ -54,4 +56,12 @@ pub fn get_output_files(conf: Value) -> HashMap<String, PathBuf> {
         output_map.insert(to_string(output.0), working_dir.join(to_string(output.1)));
     }
     return output_map;
+}
+
+pub fn get_references(config: Value) -> References {
+    let references = config.get("references").unwrap();
+    return References {
+        bibliography: resolve_path(references.get("bibliography").unwrap().as_str().unwrap().into()),
+        csl: unpack_csl(references.get("csl").unwrap().as_str().unwrap().into())
+    }
 }
