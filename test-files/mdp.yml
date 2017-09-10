@@ -8,3 +8,6 @@ input:
 output:
     pdf: output.pdf
 title: test title
+references:
+    bibliography: bib.yaml
+    csl: apaaaaa

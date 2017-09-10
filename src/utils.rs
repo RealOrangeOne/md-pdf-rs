@@ -1,7 +1,7 @@
 use std::fmt::Debug;
 use std::process::exit;
 use std::io::{self, Write};
-use std::env::current_exe;
+use std::env::{current_exe, current_dir};
 use std::path::PathBuf;
 
 
@@ -39,4 +39,9 @@ pub fn get_exe_dir() -> PathBuf {
         .parent()
         .expect("Failed to get exe directory")
         .to_path_buf();
+}
+
+pub fn resolve_path(path: String) -> PathBuf {
+    let base_dir = current_dir().unwrap();
+    return base_dir.join(path);
 }

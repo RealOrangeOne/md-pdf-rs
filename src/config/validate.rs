@@ -1,10 +1,12 @@
 use serde_yaml::Value;
 use std::vec::Vec;
-
-pub type ValidationResult = Result<(), String>;
-
 use config::read;
 use config::validate_types::check_config_types;
+use utils::resolve_path;
+use build::csl::is_valid_csl;
+
+
+pub type ValidationResult = Result<(), String>;
 
 
 fn check_required_keys(config: Value) -> ValidationResult {
@@ -45,6 +47,26 @@ fn check_output_files(config: Value) -> ValidationResult {
     return Ok(());
 }
 
+fn check_references(config: Value) -> ValidationResult {
+    if config.get("references").is_none() {
+        return Ok(());
+    }
+    let references = config.get("references").unwrap();
+    let bibliography = resolve_path(references.get("bibliography").unwrap().as_str().unwrap().into());
+    let valid_extensions = vec!["bib", "bibtex", "copac", "json", "yaml", "enl", "xml", "wos", "medline", "mods", "ris"];
+    if !bibliography.exists() {
+        return Err(format!("Can't find bibliography at {}.", bibliography.display()));
+    }
+    if !valid_extensions.contains(&bibliography.extension().unwrap().to_str().unwrap()) {
+        return Err(format!("Bibliography extension must be one of {:?}.", valid_extensions));
+    }
+    let csl = references.get("csl").unwrap().as_str().unwrap();
+    if !is_valid_csl(csl.into()) {
+        return Err(format!("{} isnt a valid CSL config.", csl));
+    }
+    return Ok(());
+}
+
 pub fn unwrap_group(config: Value, funcs: Vec<&Fn(Value) -> ValidationResult>) -> ValidationResult {
     for func in funcs.iter() {
         try!(func(config.clone()));
@@ -56,6 +78,6 @@ pub fn unwrap_group(config: Value, funcs: Vec<&Fn(Value) -> ValidationResult>) -
 pub fn validate(config: Value) -> ValidationResult {
     return unwrap_group(
         config,
-        vec![&check_required_keys, &check_config_types, &check_input_files, &check_output_files]
+        vec![&check_required_keys, &check_config_types, &check_input_files, &check_output_files, &check_references]
     );
 }
