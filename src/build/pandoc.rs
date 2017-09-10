@@ -1,8 +1,6 @@
 use pandoc::{self, Pandoc, PandocOutput, PandocError};
 use std::error::Error;
 use utils::get_exe_dir;
-use build::csl::unpack_csl;
-use std::fs::remove_file;
 use std::path::PathBuf;
 
 
@@ -20,11 +18,7 @@ fn execute_pandoc(input: String, csl_dir: Option<PathBuf>) -> Result<PandocOutpu
 
 
 pub fn render(input: String) -> Result<String, String> {
-    let csl_dir = unpack_csl("apa".into());
-    let output = execute_pandoc(input, Some(csl_dir.clone()));
-    if csl_dir.exists() {
-        remove_file(csl_dir);
-    }
+    let output = execute_pandoc(input, None);
     if output.is_err() {
         return Err(output.err().unwrap().description().into());
     }

@@ -2,8 +2,8 @@ use serde_yaml::Value;
 use std::vec::Vec;
 use config::read;
 use config::validate_types::check_config_types;
+use config::csl::is_valid_csl;
 use utils::resolve_path;
-use build::csl::is_valid_csl;
 
 
 pub type ValidationResult = Result<(), String>;
