@@ -58,10 +58,13 @@ pub fn get_output_files(conf: Value) -> HashMap<String, PathBuf> {
     return output_map;
 }
 
-pub fn get_references(config: Value) -> References {
+pub fn get_references(config: Value) -> Option<References> {
+    if config.get("references").is_none() {
+        return None;
+    }
     let references = config.get("references").unwrap();
-    return References {
+    return Some(References {
         bibliography: resolve_path(references.get("bibliography").unwrap().as_str().unwrap().into()),
         csl: unpack_csl(references.get("csl").unwrap().as_str().unwrap().into())
-    }
+    });
 }

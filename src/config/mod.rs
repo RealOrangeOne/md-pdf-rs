@@ -16,7 +16,7 @@ pub struct Config {
     pub output: HashMap<String, PathBuf>,
     pub title: String,
     pub verbosity: u64,
-    pub references: References
+    pub references: Option<References>
 }
 
 #[derive(Debug, Serialize, Deserialize, Default, Clone)]
