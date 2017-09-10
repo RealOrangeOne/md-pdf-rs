@@ -4,6 +4,11 @@ use std::path::PathBuf;
 use utils::get_exe_dir;
 use std::fs::File;
 use std::io::{Read, Write};
+use config::consts::CSL_FILE_NAME;
+
+pub fn get_csl_path() -> PathBuf {
+    return get_exe_dir().join(CSL_FILE_NAME);
+}
 
 
 fn get_temp_file() -> PathBuf {
@@ -12,7 +17,7 @@ fn get_temp_file() -> PathBuf {
 
 pub fn unpack_csl(csl_name: String) -> PathBuf {
     let file = get_temp_file();
-    let zip_file = File::open(get_exe_dir().join("csl.zip")).expect("Failed to read CSL zip");
+    let zip_file = File::open(get_csl_path()).expect("Failed to read CSL zip");
     let mut archive = ZipArchive::new(zip_file).expect("Failed to load zip file");
     debug_assert!(archive.len() >= 10);
     let mut csl_zip_file = archive.by_name(&format!("{}.csl", csl_name)).expect(&format!(

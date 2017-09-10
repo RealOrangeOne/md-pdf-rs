@@ -10,7 +10,7 @@ use utils::result_override;
 
 fn get_config_path() -> PathBuf {
     let mut working_dir = current_dir().unwrap();
-    working_dir.push(consts::CONFIG_FILE);
+    working_dir.push(consts::CONFIG_FILE_NAME);
     return working_dir;
 }
 
