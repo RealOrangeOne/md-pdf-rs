@@ -26,7 +26,7 @@ pub fn ok_or_exit<T>(res: Result<T, String>) -> T {
     return match res {
         Ok(k) => k,
         Err(err) => {
-            writeln!(io::stderr(), "Error: {:?}", err).unwrap();
+            writeln!(io::stderr(), "Error: {}", err).unwrap();
             exit(1);
         }
     };
