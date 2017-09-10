@@ -15,6 +15,7 @@ pub fn read_input_files(files: Vec<PathBuf>) -> Result<String, String> {
             input_file.read_to_string(&mut input),
             format!("Failed to read input file {}.", input_file_path.display())
         ));
+        input.push('\n');
     }
     return Ok(input);
 }
