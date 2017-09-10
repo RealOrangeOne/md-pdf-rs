@@ -56,7 +56,8 @@ fn main() {
     match subcommand {
         "build" => {
             let config = get_config(args.clone());
-            utils::ok_or_exit(build(config));
+            utils::ok_or_exit(build(config.clone()));
+            config::cleanup_config(config);
         }
         cmd => {
             writeln!(io::stderr(), "Unknown command {}.", cmd).unwrap();

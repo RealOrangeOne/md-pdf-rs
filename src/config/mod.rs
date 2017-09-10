@@ -3,6 +3,7 @@ use serde_yaml::Value;
 use std::path::PathBuf;
 use std::collections::HashMap;
 use utils::result_prefix;
+use std::fs::remove_file;
 
 pub mod read;
 pub mod validate;
@@ -44,4 +45,11 @@ pub fn get_config() -> Result<Config, String> {
         try!(result_prefix(serde_yaml::from_str(&config_str), "Config Parse Error".into()));
     try!(result_prefix(validate::validate(config.clone()), "Config Validation Error".into()));
     return Ok(Config::new(config));
+}
+
+
+pub fn cleanup_config(config: Config) {
+    if config.references.is_some() {
+        remove_file(config.references.unwrap().csl).expect("Failed to remove file");
+    }
 }
