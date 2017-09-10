@@ -57,7 +57,7 @@ fn check_title(config: Value) -> ValidationResult {
 
 fn check_references(config: Value) -> ValidationResult {
     if config.get("references").is_none() {
-        return Ok(());  // references is optional, dont type it if it's not there
+        return Ok(()); // references is optional, dont type it if it's not there
     }
     if !config.get("references").unwrap().is_mapping() {
         return Err("References should be mapping".into());
@@ -82,5 +82,8 @@ fn check_references(config: Value) -> ValidationResult {
 
 
 pub fn check_config_types(config: Value) -> ValidationResult {
-    return unwrap_group(config, vec![&check_root, &check_input, &check_output, &check_title, &check_references]);
+    return unwrap_group(
+        config,
+        vec![&check_root, &check_input, &check_output, &check_title, &check_references]
+    );
 }

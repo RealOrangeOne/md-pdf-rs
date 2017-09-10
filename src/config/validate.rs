@@ -52,8 +52,21 @@ fn check_references(config: Value) -> ValidationResult {
         return Ok(());
     }
     let references = config.get("references").unwrap();
-    let bibliography = resolve_path(references.get("bibliography").unwrap().as_str().unwrap().into());
-    let valid_extensions = vec!["bib", "bibtex", "copac", "json", "yaml", "enl", "xml", "wos", "medline", "mods", "ris"];
+    let bibliography =
+        resolve_path(references.get("bibliography").unwrap().as_str().unwrap().into());
+    let valid_extensions = vec![
+        "bib",
+        "bibtex",
+        "copac",
+        "json",
+        "yaml",
+        "enl",
+        "xml",
+        "wos",
+        "medline",
+        "mods",
+        "ris",
+    ];
     if !bibliography.exists() {
         return Err(format!("Can't find bibliography at {}.", bibliography.display()));
     }
@@ -78,6 +91,12 @@ pub fn unwrap_group(config: Value, funcs: Vec<&Fn(Value) -> ValidationResult>) -
 pub fn validate(config: Value) -> ValidationResult {
     return unwrap_group(
         config,
-        vec![&check_required_keys, &check_config_types, &check_input_files, &check_output_files, &check_references]
+        vec![
+            &check_required_keys,
+            &check_config_types,
+            &check_input_files,
+            &check_output_files,
+            &check_references,
+        ]
     );
 }
