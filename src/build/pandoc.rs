@@ -5,7 +5,10 @@ use std::path::PathBuf;
 use config::{Config, References};
 
 
-fn execute_pandoc(input: String, references: Option<References>) -> Result<PandocOutput, PandocError> {
+fn execute_pandoc(
+    input: String,
+    references: Option<References>,
+) -> Result<PandocOutput, PandocError> {
     let mut renderer = Pandoc::new();
     renderer.set_output_format(pandoc::OutputFormat::Html, vec![]);
     renderer.set_input_format(pandoc::InputFormat::Markdown, vec![]);

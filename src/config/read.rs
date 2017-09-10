@@ -64,7 +64,9 @@ pub fn get_references(config: Value) -> Option<References> {
     }
     let references = config.get("references").unwrap();
     return Some(References {
-        bibliography: resolve_path(references.get("bibliography").unwrap().as_str().unwrap().into()),
+        bibliography: resolve_path(
+            references.get("bibliography").unwrap().as_str().unwrap().into()
+        ),
         csl: unpack_csl(references.get("csl").unwrap().as_str().unwrap().into())
     });
 }
