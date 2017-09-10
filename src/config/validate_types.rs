@@ -55,7 +55,32 @@ fn check_title(config: Value) -> ValidationResult {
     return Ok(());
 }
 
+fn check_references(config: Value) -> ValidationResult {
+    if config.get("references").is_none() {
+        return Ok(());  // references is optional, dont type it if it's not there
+    }
+    if !config.get("references").unwrap().is_mapping() {
+        return Err("References should be mapping".into());
+    }
+    let references = config.get("references").unwrap().as_mapping().unwrap();
+    let csl = references.get(&Value::String("csl".into()));
+    let bibliography = references.get(&Value::String("bibliography".into()));
+    if csl.is_none() {
+        return Err("Missing CSL file".into());
+    }
+    if bibliography.is_none() {
+        return Err("Missing Bibliography".into());
+    }
+    if !csl.unwrap().is_string() {
+        return Err("CSL file must be a string".into());
+    }
+    if !bibliography.unwrap().is_string() {
+        return Err("Bibliography must be a string".into());
+    }
+    return Ok(());
+}
+
 
 pub fn check_config_types(config: Value) -> ValidationResult {
-    return unwrap_group(config, vec![&check_root, &check_input, &check_output, &check_title]);
+    return unwrap_group(config, vec![&check_root, &check_input, &check_output, &check_title, &check_references]);
 }
