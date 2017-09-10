@@ -10,4 +10,4 @@ output:
 title: test title
 references:
     bibliography: bib.yaml
-    csl: apaaaaa
+    csl: apa
