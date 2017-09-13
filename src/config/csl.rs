@@ -1,18 +1,12 @@
 use zip::ZipArchive;
-use mktemp::Temp;
 use std::path::PathBuf;
-use utils::{get_exe_dir, result_override};
+use utils::{get_exe_dir, result_override, get_temp_file};
 use std::fs::File;
 use std::io::{Read, Write};
 use config::consts::CSL_FILE_NAME;
 
 fn get_csl_path() -> PathBuf {
     return get_exe_dir().join(CSL_FILE_NAME);
-}
-
-
-fn get_temp_file() -> PathBuf {
-    return Temp::new_file().expect("Failed to create temporary file").to_path_buf();
 }
 
 
