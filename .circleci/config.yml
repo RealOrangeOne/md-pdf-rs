@@ -30,4 +30,4 @@ jobs:
                 working_directory: ~/md-pdf/test-files
             - store_artifacts:
                 path: ~/md-pdf/test-files/output.pdf
-                path: output.pdf
+                destination: output.pdf
