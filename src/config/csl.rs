@@ -36,7 +36,7 @@ pub fn is_valid_csl(csl_name: String) -> bool {
 pub fn unpack_csl(csl_name: String) -> PathBuf {
     let file = get_temp_file();
     let mut csl_temp = File::create(&file).expect("Failed to open temporary file");
-    let mut csl_buffer = get_csl_data(csl_name).unwrap();
+    let csl_buffer = get_csl_data(csl_name).unwrap();
     csl_temp.write_all(csl_buffer.as_bytes()).expect("Failed to write CSL to temporary file");
     return file;
 }

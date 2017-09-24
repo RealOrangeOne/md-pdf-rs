@@ -1,7 +1,6 @@
 use pandoc::{self, Pandoc, PandocOutput, PandocError};
 use std::error::Error;
 use utils::get_exe_dir;
-use std::path::PathBuf;
 use config::{Config, References};
 
 

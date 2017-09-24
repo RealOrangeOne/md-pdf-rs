@@ -1,5 +1,5 @@
-use html::{sciter_start, get_html, get_body, find_first};
-use sciter::{Element, Value};
+use html::{sciter_start, get_html, get_body};
+use sciter::Element;
 use config::Config;
 
 
@@ -13,9 +13,11 @@ fn create_title() -> Element {
 pub fn references(config: Config, input: String) -> Result<String, String> {
     let mut root = sciter_start(input);
     let mut body = get_body(&mut root);
-    let mut possible_references = body.find_first("div#refs").expect("Failed to get refs");
+    let possible_references = body.find_first("div#refs").expect("Failed to get refs");
     if possible_references.is_some() {
-        body.insert(possible_references.unwrap().index(), &create_title());
+        body.insert(possible_references.unwrap().index(), &create_title()).expect(
+            "Failed to add references title"
+        );
     }
     return Ok(get_html(root));
 }
