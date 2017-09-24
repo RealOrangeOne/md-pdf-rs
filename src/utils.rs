@@ -51,3 +51,8 @@ pub fn resolve_path(path: String) -> PathBuf {
 pub fn get_temp_file() -> PathBuf {
     return Temp::new_file().expect("Failed to create temporary file").to_path_buf();
 }
+
+#[inline]
+pub fn path_to_string<'a>(path: &'a PathBuf) -> &'a str {
+    return path.to_str().expect("Failed to parse path to string");
+}
