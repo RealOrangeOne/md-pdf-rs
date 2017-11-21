@@ -10,7 +10,7 @@ fn create_title() -> Element {
 }
 
 
-pub fn references(config: Config, input: String) -> Result<String, String> {
+pub fn references(_: Config, input: String) -> Result<String, String> {
     let mut root = sciter_start(input);
     let mut body = get_body(&mut root);
     let possible_references = body.find_first("div#refs").expect("Failed to get refs");

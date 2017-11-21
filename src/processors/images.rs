@@ -3,7 +3,7 @@ use config::Config;
 use utils::{resolve_path, path_to_string};
 
 
-pub fn images(config: Config, input: String) -> Result<String, String> {
+pub fn images(_: Config, input: String) -> Result<String, String> {
     let mut root = sciter_start(input);
     let mut body = get_body(&mut root);
     let images = find_all(&mut body, "img[src]");

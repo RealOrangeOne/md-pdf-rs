@@ -3,7 +3,7 @@ use sciter::Element;
 use config::Config;
 
 
-pub fn head_cleanup(config: Config, input: String) -> Result<String, String> {
+pub fn head_cleanup(_: Config, input: String) -> Result<String, String> {
     let mut root = sciter_start(input);
     let mut head = get_head(&mut root);
     destroy_matching(&mut head, "meta[content='text/css']");

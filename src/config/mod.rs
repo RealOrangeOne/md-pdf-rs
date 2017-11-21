@@ -1,9 +1,8 @@
 use serde_yaml;
-use serde_yaml::Value;
 use std::path::PathBuf;
 use std::collections::HashMap;
 use utils::{result_prefix, resolve_path, result_override};
-use std::fs::{remove_file, File};
+use std::fs::File;
 use std::env::current_dir;
 use std::io::Read;
 

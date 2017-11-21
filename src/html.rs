@@ -34,11 +34,6 @@ pub fn find_first(root: &mut Element, selector: &str) -> Element {
     return all_matches.pop().expect(&format!("Failed to find {}.", selector));
 }
 
-pub fn destroy_at(root: &mut Element, index: usize) {
-    let mut ele = root.get(index).expect(&format!("Failed to get element at {}.", index));
-    ele.destroy().expect("Failed to delete.");
-}
-
 pub fn destroy_matching(root: &mut Element, selector: &str) {
     let matches = find_all(root, selector);
     if matches.is_empty() {

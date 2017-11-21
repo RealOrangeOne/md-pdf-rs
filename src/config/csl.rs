@@ -28,11 +28,6 @@ fn get_csl_data(csl_name: String) -> Result<String, String> {
     return Ok(csl_buffer);
 }
 
-pub fn is_valid_csl(csl_name: String) -> bool {
-    return get_csl_data(csl_name).is_ok();
-}
-
-
 pub fn unpack_csl(csl_name: String) -> PathBuf {
     let file = get_temp_file();
     let mut csl_temp = File::create(&file).expect("Failed to open temporary file");
