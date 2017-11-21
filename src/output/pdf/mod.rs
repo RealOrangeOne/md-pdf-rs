@@ -25,7 +25,7 @@ fn create_builder<'a>(config: Config, builder: &'a mut PdfBuilder) -> &'a mut Pd
 }
 
 pub fn output(config: Config, html: String) -> Result<(), String> {
-    let output_location = &config.output["pdf"];
+    let output_location = &config.absolute_output("pdf".into());
     let mut pdf_app =
         try!(result_override(PdfApplication::new(), "Failed to create PDF Application".into()));
     let mut base_builder = pdf_app.builder();

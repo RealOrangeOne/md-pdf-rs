@@ -2,7 +2,7 @@ use std::fmt::Debug;
 use std::process::exit;
 use std::io::{self, Write};
 use std::env::{current_exe, current_dir};
-use std::path::PathBuf;
+use std::path::{PathBuf, Path};
 use mktemp::Temp;
 
 
@@ -43,7 +43,7 @@ pub fn get_exe_dir() -> PathBuf {
         .to_path_buf();
 }
 
-pub fn resolve_path(path: String) -> PathBuf {
+pub fn resolve_path<P: AsRef<Path>>(path: P) -> PathBuf {
     let base_dir = current_dir().unwrap();
     return base_dir.join(path);
 }

@@ -35,7 +35,7 @@ use utils::ok_or_exit;
 
 
 fn build(config: Config) -> Result<(), String> {
-    let input = try!(read_input_files(config.input.clone()));
+    let input = try!(read_input_files(config.absolute_inputs()));
     let raw_html = try!(build_input(config.clone(), input));
     println!("{}", raw_html);
     try!(output(config, raw_html));
@@ -57,7 +57,6 @@ fn main() {
         "build" => {
             let config = get_config(args.clone());
             utils::ok_or_exit(build(config.clone()));
-            config::cleanup_config(config);
         }
         cmd => {
             writeln!(io::stderr(), "Unknown command {}.", cmd).unwrap();

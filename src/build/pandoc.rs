@@ -3,7 +3,6 @@ use std::error::Error;
 use utils::get_exe_dir;
 use config::{Config, References};
 
-
 fn execute_pandoc(
     input: String,
     references: Option<References>,
@@ -17,9 +16,9 @@ fn execute_pandoc(
     renderer.add_option(pandoc::PandocOption::Standalone);
     renderer.add_pandoc_path_hint(&get_exe_dir());
     if references.is_some() {
-        let References { csl, bibliography } = references.unwrap();
-        renderer.set_bibliography(&bibliography);
-        renderer.set_csl(&csl);
+        let mut references_data = references.unwrap();
+        renderer.set_bibliography(&references_data.absolute_bibliography());
+        renderer.set_csl(&references_data.absolute_csl());
     }
     return renderer.execute();
 }
@@ -28,7 +27,9 @@ fn execute_pandoc(
 pub fn render(config: Config, input: String) -> Result<String, String> {
     let output = execute_pandoc(input, config.references);
     if output.is_err() {
-        return Err(output.err().unwrap().description().into());
+        let err = output.err();
+        println!("{:?}", err);
+        return Err(err.unwrap().description().into());
     }
     return match output.unwrap() {
         pandoc::PandocOutput::ToBuffer(out) => Ok(out),
