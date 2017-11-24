@@ -43,7 +43,7 @@ fn build(config: Config) -> Result<(), String> {
 }
 
 fn get_config(args: ArgMatches) -> Config {
-    let mut config = ok_or_exit(config::get_config());
+    let mut config = ok_or_exit(config::read::get_config());
     config.verbosity = args::get_verbose(args);
     return config;
 }
