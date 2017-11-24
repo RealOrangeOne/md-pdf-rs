@@ -6,7 +6,7 @@ input:
     - ipsum.md
     - end.md
 output:
-    pdf: output.pdf
+    PDF: output.pdf
 title: test title
 references:
     bibliography: bib.yaml

@@ -52,7 +52,6 @@ fn get_config(args: ArgMatches) -> Config {
 fn main() {
     let args = args::get_matches();
     let subcommand = args.subcommand_name().expect("subcommand error");
-
     match subcommand {
         "build" => {
             let config = get_config(args.clone());

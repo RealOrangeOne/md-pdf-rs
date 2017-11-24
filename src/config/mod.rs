@@ -9,10 +9,16 @@ use std::io::Read;
 pub mod consts;
 pub mod csl;
 
+#[derive(Debug, Serialize, Deserialize, Eq, PartialEq, Hash, Clone)]
+pub enum OutputType {
+    PDF,
+    HTML
+}
+
 #[derive(Debug, Serialize, Deserialize, Default, Clone)]
 pub struct Config {
     input: Vec<PathBuf>,
-    output: HashMap<String, PathBuf>,
+    output: HashMap<OutputType, PathBuf>,
     pub title: String,
 
     #[serde(default = "default_verbosity")]
@@ -30,11 +36,11 @@ pub struct References {
 
 
 impl Config {
-    pub fn absolute_output(&self, output_type: String) -> PathBuf {
+    pub fn absolute_output(&self, output_type: OutputType) -> PathBuf {
         return resolve_path(self.output.get(&output_type).unwrap());
     }
 
-    pub fn has_output(&self, output_type: String) -> bool {
+    pub fn has_output(&self, output_type: OutputType) -> bool {
         return self.output.contains_key(&output_type);
     }
 
