@@ -115,3 +115,6 @@ lib/
 
 ### Other ###
 test-files/output.pdf
+
+#### Static Assets ###
+assets/style.css

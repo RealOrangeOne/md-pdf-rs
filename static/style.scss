@@ -1,0 +1,93 @@
+$image-spacing: 30px;
+$font-size-base: 12px;
+
+body.cover {
+  margin: 0 auto;
+  text-align: center;
+
+  & h1 {
+    padding-top: 300px;
+    font-size: 48px;
+  }
+
+  & h3 {
+    font-size: 36px;
+  }
+
+  & h4 {
+    font-size: 18px;
+  }
+}
+
+body.content {
+  line-height: 1.5;
+  font-size: $font-size-base;
+
+  img {
+    margin-top: $image-spacing;
+    width: 100%;
+    page-break-after: avoid;
+  }
+
+  p.caption {
+    margin: 1px 5px $image-spacing;
+    padding: 0;
+    font-style: italic;
+    page-break-before: avoid;
+  }
+
+  .references-title {
+    page-break-before: always;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+
+  code {
+    white-space: inherit !important;
+  }
+}
+
+body.footer, body.header {
+  font-size: $font-size-base;
+
+  table {
+    width: 100%;
+
+    td {
+      width: 33%;
+      text-align: center;
+    }
+  }
+}
+
+body.tocs {
+  h1 {
+    margin-bottom: 45px;
+    text-align: center;
+  }
+
+  .row {
+    margin-bottom: $font-size-base;
+    border-bottom: 1px dashed black;
+    font-size: $font-size-base * 1.5;
+  }
+
+  .page-number {
+    float: right;
+    padding-right: $font-size-base * 0.5;
+  }
+
+  ul {
+    padding-left: 0;
+
+    li {
+      list-style: none;
+    }
+
+    ul {
+      padding-left: $font-size-base;
+    }
+  }
+}

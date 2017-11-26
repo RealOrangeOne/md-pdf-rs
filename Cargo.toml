@@ -17,6 +17,7 @@ zip = "0.2.6"
 
 [build-dependencies]
 include_dir = "0.1.3"
+rsass = "0.5.0"
 
 [profile.dev]
 rpath = true
