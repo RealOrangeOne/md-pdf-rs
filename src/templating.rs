@@ -1,12 +1,16 @@
 use tera::{Tera, Context};
 use config::Config;
 use tera::Result;
+use chrono::{Local, DateTime};
 
 const TEMP_TEMPLATE_FILENAME: &str = "index.html";
 
 fn build_context(config: &Config) -> Context {
     let mut context = Context::new();
+    let now: DateTime<Local> = Local::now();
     context.add("config", &config);
+    context.add("now", &now.to_rfc3339());
+    context.add("version", &String::from(crate_version!()));
     return context;
 }
 

@@ -10,6 +10,7 @@ extern crate sciter;
 extern crate zip;
 extern crate mktemp;
 extern crate tera;
+extern crate chrono;
 
 use std::io::{self, Write};
 use std::process::exit;
