@@ -14,7 +14,7 @@ fn pdf_result<T>(res: WKResult<T>) -> Result<T, String> {
 
 
 fn create_builder<'a>(config: Config, builder: &'a mut PdfBuilder) -> &'a mut PdfBuilder {
-    let mut safe_builder = builder.page_size(PageSize::A4).image_quality(100).title(&config.title);
+    let safe_builder = builder.page_size(PageSize::A4).image_quality(100).title(&config.title);
     unsafe {
         return safe_builder
             .global_setting("useCompression", "true")
