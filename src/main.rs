@@ -9,6 +9,7 @@ extern crate wkhtmltopdf;
 extern crate sciter;
 extern crate zip;
 extern crate mktemp;
+extern crate tera;
 
 use std::io::{self, Write};
 use std::process::exit;
@@ -22,6 +23,7 @@ mod output;
 mod processors;
 mod html;
 mod assets;
+mod templating;
 
 #[cfg(test)]
 mod tests;

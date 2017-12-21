@@ -5,8 +5,12 @@ use assets;
 
 fn create_css_element(style: String) -> Element {
     let mut style_tag = Element::with_text("style", &style).unwrap();
-    style_tag.set_attribute("type", "text/css").expect(&format!("Failed to set CSS mimetype for {}", style));
-    style_tag.set_attribute("media", "all").expect(&format!("Failed to set CSS media type for {}", style));
+    style_tag.set_attribute("type", "text/css").expect(
+        &format!("Failed to set CSS mimetype for {}", style)
+    );
+    style_tag.set_attribute("media", "all").expect(
+        &format!("Failed to set CSS media type for {}", style)
+    );
     return style_tag;
 }
 
